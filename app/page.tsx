@@ -228,7 +228,7 @@ export default function Home() {
           </div>
 
           <details className="fallback-settings">
-            <summary>Medidas quando ^PW ou ^LL não existirem</summary>
+            <summary>Medidas mínimas quando ^PW ou ^LL não existirem</summary>
             <div className="size-fields">
               <label>
                 Largura (mm)

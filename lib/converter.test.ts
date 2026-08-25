@@ -10,6 +10,7 @@ import {
   mmToPoints,
   outputFileName,
   primeLabelDimensions,
+  requiredLabelHeight,
   type PreviewLabel,
 } from './converter';
 
@@ -51,6 +52,44 @@ describe('converter helpers', () => {
   it('distinguishes printable rasters from control-only blank formats', () => {
     expect(hasVisibleDots(new Uint8Array([0, 0, 0]))).toBe(false);
     expect(hasVisibleDots(new Uint8Array([0, 16, 0]))).toBe(true);
+  });
+
+  it('expands fallback height to include content below the original boundary', () => {
+    expect(requiredLabelHeight({
+      height: 1200,
+      diagnostics: [{ code: 'FALLBACK_LABEL_HEIGHT' }],
+      highlightRegions: [
+        { y: 1180, height: 50 },
+        { y: 1300, height: 50 },
+      ],
+    })).toBe(1351);
+  });
+
+  it('keeps the fallback height when all content already fits', () => {
+    expect(requiredLabelHeight({
+      height: 1200,
+      diagnostics: [{ code: 'FALLBACK_LABEL_HEIGHT' }],
+      highlightRegions: [{ y: 900, height: 100 }],
+    })).toBe(1200);
+  });
+
+  it('preserves an explicit label height even when content exceeds it', () => {
+    expect(requiredLabelHeight({
+      height: 1200,
+      diagnostics: [],
+      highlightRegions: [{ y: 1300, height: 50 }],
+    })).toBe(1200);
+  });
+
+  it('includes circle and text caret geometry in the fallback height', () => {
+    expect(requiredLabelHeight({
+      height: 1200,
+      diagnostics: [{ code: 'FALLBACK_LABEL_HEIGHT' }],
+      highlightRegions: [
+        { y: 1220, radius: 40 },
+        { y: 1300, textCaretStops: [{ y: 1300, endY: 1375 }] },
+      ],
+    })).toBe(1376);
   });
 
   it('creates a safe PDF filename from supported inputs', () => {
