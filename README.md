@@ -35,6 +35,12 @@ npm run build
 Para uma publicação futura, defina `NEXT_PUBLIC_SITE_URL` com a origem pública
 antes do build para que a imagem social use uma URL absoluta correta.
 
+## Railway
+
+O arquivo `railway.json` configura o build e a inicialização. No Railway, o
+servidor usa automaticamente a variável `PORT` e o domínio público fornecido
+pela plataforma.
+
 ## Observações de impressão
 
 O PDF não adiciona margens. Na caixa de impressão, use escala de 100%, desative

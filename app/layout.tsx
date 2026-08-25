@@ -1,7 +1,12 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
-const metadataBase = new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000');
+const deploymentOrigin = process.env.RAILWAY_PUBLIC_DOMAIN
+  ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+  : undefined;
+const metadataBase = new URL(
+  process.env.NEXT_PUBLIC_SITE_URL || deploymentOrigin || 'http://localhost:3000',
+);
 
 export const metadata: Metadata = {
   title: 'ZPL para PDF — Conversor local de etiquetas',
