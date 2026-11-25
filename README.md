@@ -46,3 +46,17 @@ pela plataforma.
 O PDF não adiciona margens. Na caixa de impressão, use escala de 100%, desative
 o ajuste automático e selecione na impressora o mesmo tamanho exibido na
 prévia.
+
+## Contribuições
+
+Issues e pull requests são bem-vindos. Antes de enviar, rode `npm test`,
+`npm run lint` e `npm run build`. Se possível, inclua em
+`tests/fixtures/` um exemplo de ZPL que reproduza o problema (sem dados reais
+de clientes, endereços ou códigos de rastreio).
+
+## Licença
+
+Distribuído sob a licença MIT. Veja [LICENSE](LICENSE).
+
+Bibliotecas de terceiros usadas: [zplr](https://www.npmjs.com/package/zplr)
+e [pdf-lib](https://pdf-lib.js.org/), ambas MIT.
